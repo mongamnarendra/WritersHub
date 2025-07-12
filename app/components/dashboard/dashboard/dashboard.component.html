@@ -1,0 +1,64 @@
+<div class="dashboard-wrapper">
+  <!-- 🔹 Top Navbar -->
+  <nav class="navbar">
+    <div class="logo">WritersHub</div>
+    <div class="user-info">
+      <span>{{ currentUser?.username }}</span>
+      <button class="btn btn-secondary" (click)="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- 🔹 New Post (Only for Writers) -->
+    <div *ngIf="currentUser?.role === 'WRITER'" class="card">
+      <div class="card-body">
+        <textarea class="form-control" [(ngModel)]="newPostContent" rows="3"
+          placeholder="What's on your mind?"></textarea>
+        <button class="btn btn-primary mt-2" (click)="createPost()">Post</button>
+      </div>
+    </div>
+
+    <!-- 🔹 All Posts Feed -->
+    <div *ngFor="let post of posts" class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ post.author?.username }}</h5>
+        <small class="text-muted">{{ post.createdAt | date:'short' }}</small>
+        <p class="card-text post-link" (click)="viewPostDetail(post.id!)">
+          {{ post.content | slice:0:200 }}<span class="text-primary">...View Details</span>
+        </p>
+
+
+        <!-- Like/Unlike -->
+        <button class="btn btn-outline-primary me-2" (click)="toggleLike(post.id!)">
+          {{ hasLiked(post) ? 'Unlike' : 'Like' }} ({{ post.likedUsers?.length || 0 }})
+        </button>
+
+        <!-- Delete (Writer or Admin) -->
+        <button *ngIf="canDelete(post)" class="btn btn-danger" (click)="deletePost(post.id!)">Delete</button>
+      </div>
+
+      <!-- 🔹 Comments -->
+      <div class="card-footer">
+        <div class="comments-section">
+          <h6>Comments ({{ post.comments?.length || 0 }})</h6>
+
+          <div class="comment" *ngFor="let c of post.comments">
+            <div>
+              <strong>{{ c.user.username }}</strong>
+              <span class="text-muted">{{ c.createdAt | date: 'short' }}</span>
+            </div>
+            <div>{{ c.text }}</div>
+          </div>
+        </div>
+
+        <!-- 🔸 Add new comment -->
+        <div class="comment-form mt-2">
+          <input type="text" [(ngModel)]="newComment[post.id!]" class="form-control" placeholder="Add a comment..." />
+          <button class="btn btn-secondary mt-1" (click)="addComment(post.id!)">Comment</button>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

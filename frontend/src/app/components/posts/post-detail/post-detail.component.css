@@ -1,0 +1,50 @@
+.post-detail {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.post-detail h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #6c63ff;
+}
+
+.post-detail p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.post-detail .date {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 10px;
+}
+
+hr {
+  margin: 30px 0;
+  border: none;
+  height: 1px;
+  background-color: #eee;
+}
+
+/* Optional - Responsive */
+@media (max-width: 768px) {
+  .post-detail {
+    padding: 15px;
+    margin: 20px;
+  }
+
+  .post-detail h2 {
+    font-size: 1.25rem;
+  }
+
+  .post-detail p {
+    font-size: 0.95rem;
+  }
+}
